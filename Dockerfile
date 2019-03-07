@@ -27,15 +27,14 @@ RUN git clone https://github.com/vim/vim \
     --with-python-config-dir=/usr/lib/python2.7/config \
  && make install
 
- FROM node:10-alpine
+FROM node:10-alpine
 
- COPY --from=builder /usr/local/bin/ /usr/local/bin
- COPY --from=builder /usr/local/share/vim/ /usr/local/share/vim/
- # NOTE: man page is ignored
+COPY --from=builder /usr/local/bin/ /usr/local/bin
+COPY --from=builder /usr/local/share/vim/ /usr/local/share/vim/
+# NOTE: man page is ignored
 
 COPY bashrc.sh /root/.bashrc
 COPY vimrc.vim /root/.vimrc
-COPY tern-project.json /tern-project/.tern-project
 
 RUN apk add --no-cache \
     python \
@@ -56,14 +55,11 @@ RUN apk add --no-cache \
     gnupg \
     git && \
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim && \
-    npm install -g jshint && \
+    npm install -g eslint prettier && \
     vim +PluginInstall +qall 
 
-WORKDIR /root/.vim/bundle/tern_for_vim
-RUN npm install
-
 WORKDIR /root/.vim/bundle/YouCompleteMe
-RUN python install.py --tern-completer
+RUN python install.py --ts-completer
 
 WORKDIR /
 

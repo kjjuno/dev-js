@@ -37,9 +37,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'kien/ctrlp.vim'          "Best used with ctags, install at terminal
 Plugin 'scrooloose/nerdtree'
-Plugin 'ternjs/tern_for_vim'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'vim-syntastic/syntastic'
+Plugin 'w0rp/ale'
 
 call vundle#end()                " required
 filetype plugin indent on        " required
@@ -57,14 +56,9 @@ set autochdir
 set tags=tags;
 
 "////////////////////////////
-"// Syntastic
+"// ale
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['jshint']
+let b:ale_linters = ['eslint']
+let g:ale_linters_explicit = 1
+let b:ale_fixers = ['prettier', 'eslint']
+"let b:ale_fix_on_save = 1
