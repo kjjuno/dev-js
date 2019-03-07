@@ -4,6 +4,7 @@
 
 syntax enable
 filetype off                     " required
+colorscheme industry
 set encoding=utf-8
 set nocompatible                 " be iMproved, required
 set statusline+=%F               "Show the full path to the current file
